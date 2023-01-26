@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbartosi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/17 12:40:14 by jbartosi          #+#    #+#             */
-/*   Updated: 2023/01/26 21:27:48 by jbartosi         ###   ########.fr       */
+/*   Created: 2023/01/11 11:28:41 by jbartosi          #+#    #+#             */
+/*   Updated: 2023/01/11 11:28:42 by jbartosi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include <stdio.h>
 
-# include <stdarg.h>
-# include <unistd.h>
-# include "libft/libft.h"
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
+{
+	const unsigned char		*h;
+	const unsigned char		*k;
 
-int	ft_printf(const char *str, ...);
-int	ft_printnbr_base(long long int nb, const char *base);
-int	ft_printchar(char c);
-
-#endif
+	h = (const unsigned char *) s1;
+	k = (const unsigned char *) s2;
+	while (n > 0)
+	{
+		if (*h != *k)
+			return (*h - *k);
+		n--;
+		h++;
+		k++;
+	}
+	return (0);
+}

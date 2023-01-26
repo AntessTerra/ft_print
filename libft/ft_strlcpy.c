@@ -1,24 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbartosi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/17 12:40:14 by jbartosi          #+#    #+#             */
-/*   Updated: 2023/01/26 21:27:48 by jbartosi         ###   ########.fr       */
+/*   Created: 2022/10/17 14:37:19 by jbartosi          #+#    #+#             */
+/*   Updated: 2022/10/19 12:36:02 by jbartosi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include <stdio.h>
 
-# include <stdarg.h>
-# include <unistd.h>
-# include "libft/libft.h"
+#include "libft.h"
 
-int	ft_printf(const char *str, ...);
-int	ft_printnbr_base(long long int nb, const char *base);
-int	ft_printchar(char c);
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+{
+	char		*d;
+	char		*e;
+	const char	*s;
 
-#endif
+	d = dest;
+	e = dest + size;
+	s = src;
+	if (size > ft_strlen(src))
+		ft_memcpy(dest, src, ft_strlen(src) + 1);
+	while (*s != '\0' && d < e)
+		*d++ = *s++;
+	if (d < e)
+		*d = 0;
+	else if (size > 0)
+		d[-1] = 0;
+	while (*s != '\0')
+		s++;
+	return (s - src);
+}

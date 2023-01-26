@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbartosi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/17 12:40:14 by jbartosi          #+#    #+#             */
-/*   Updated: 2023/01/26 21:27:48 by jbartosi         ###   ########.fr       */
+/*   Created: 2023/01/16 10:08:54 by jbartosi          #+#    #+#             */
+/*   Updated: 2023/01/16 10:08:56 by jbartosi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-# include "libft/libft.h"
+void	ft_lstadd_front(t_list **lst, t_list *new)
+{
+	t_list	*tmp;
 
-int	ft_printf(const char *str, ...);
-int	ft_printnbr_base(long long int nb, const char *base);
-int	ft_printchar(char c);
-
-#endif
+	if (*lst == NULL)
+	{
+		*lst = new;
+		return ;
+	}
+	tmp = *lst;
+	*lst = new;
+	new->next = tmp;
+}

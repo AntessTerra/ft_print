@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbartosi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/17 12:40:14 by jbartosi          #+#    #+#             */
-/*   Updated: 2023/01/26 21:27:48 by jbartosi         ###   ########.fr       */
+/*   Created: 2022/10/20 15:10:19 by jbartosi          #+#    #+#             */
+/*   Updated: 2022/10/21 10:39:24 by jbartosi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+int	ft_atoi(const char *nptr)
+{
+	int	i;
+	int	sign;
+	int	base;
 
-# include <stdarg.h>
-# include <unistd.h>
-# include "libft/libft.h"
-
-int	ft_printf(const char *str, ...);
-int	ft_printnbr_base(long long int nb, const char *base);
-int	ft_printchar(char c);
-
-#endif
+	i = 0;
+	sign = 1;
+	base = 0;
+	if (nptr[i] == '\0')
+		return (0);
+	while (nptr[i] <= ' ' && nptr[i] != '\e')
+		i++;
+	if (nptr[i] == '-' || nptr[i] == '+')
+	{
+		if (nptr[i] == '-')
+			sign = sign * -1;
+		i++;
+	}
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+		base = 10 * base + (nptr[i++] - '0');
+	return (base * sign);
+}

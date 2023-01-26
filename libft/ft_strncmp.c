@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbartosi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/17 12:40:14 by jbartosi          #+#    #+#             */
-/*   Updated: 2023/01/26 21:27:48 by jbartosi         ###   ########.fr       */
+/*   Created: 2022/10/18 10:41:10 by jbartosi          #+#    #+#             */
+/*   Updated: 2022/10/20 14:56:34 by jbartosi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include <stdio.h>
 
-# include <stdarg.h>
-# include <unistd.h>
-# include "libft/libft.h"
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	unsigned int	i;
+	unsigned char	*big;
+	unsigned char	*small;
 
-int	ft_printf(const char *str, ...);
-int	ft_printnbr_base(long long int nb, const char *base);
-int	ft_printchar(char c);
-
-#endif
+	big = (unsigned char *) s1;
+	small = (unsigned char *) s2;
+	i = 0;
+	while (i < n && ((big[i] != '\0') || (small[i] != '\0')))
+	{
+		if (big[i] != small[i])
+			return (big[i] - small[i]);
+		i++;
+	}
+	return (0);
+}

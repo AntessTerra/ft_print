@@ -1,24 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbartosi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/17 12:40:14 by jbartosi          #+#    #+#             */
-/*   Updated: 2023/01/26 21:27:48 by jbartosi         ###   ########.fr       */
+/*   Created: 2022/10/27 12:38:21 by jbartosi          #+#    #+#             */
+/*   Updated: 2022/10/27 12:38:24 by jbartosi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include <stdlib.h>
 
-# include <stdarg.h>
-# include <unistd.h>
-# include "libft/libft.h"
+static int	ft_get_lenght(const char *str)
+{
+	int	i;
 
-int	ft_printf(const char *str, ...);
-int	ft_printnbr_base(long long int nb, const char *base);
-int	ft_printchar(char c);
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}
 
-#endif
+char	*ft_strdup(const char *s)
+{
+	char	*dup;
+	int		i;
+
+	i = 0;
+	dup = malloc(ft_get_lenght(s) + 1);
+	if (!dup)
+		return (0);
+	while (s[i] != '\0')
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
+}
