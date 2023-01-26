@@ -14,8 +14,9 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
+# include <unistd.h>
 
-int	ft_printf(int n, ...);
+int	ft_printf(const char *str, ...);
 
 #endif
 

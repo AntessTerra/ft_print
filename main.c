@@ -16,7 +16,7 @@
 
 int	main(void)
 {
-	printf("Testing : %i\n", ft_printf(4, 6, 7, 9, 8));
-	printf("Testing : %i\n", ft_printf(5, 6, 7, 9, 8, 20));
+	printf("Testing : %i\n", ft_printf("%c", 'a'));
+	printf("Testing : %i\n", printf("%c", 'a'));
 	return (0);
 }

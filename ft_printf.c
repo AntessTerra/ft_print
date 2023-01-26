@@ -12,18 +12,42 @@
 
 #include "ft_printf.h"
 
-int	ft_printf(int n, ...)
+int	ft_printchar(char c)
 {
-	int		sum;
-	va_list	ptr;
+	write(1, &c, 1);
+	return (1);
+}
 
-	sum = 0;
-	va_start(ptr, n);
-	while (n > 0)
+int	ft_format(va_list args, const char specifier)
+{
+	int	printed;
+
+	printed = 0;
+	if (specifier == 'c')
+		printed += ft_printchar(va_arg(args, int));
+	return (printed);
+}
+
+int	ft_printf(const char *str, ...)
+{
+	int		i;
+	int		printed;
+	va_list	args;
+
+	i = 0;
+	printed = 0;
+	va_start(args, str);
+	while (str[i])
 	{
-		sum += va_arg(ptr, int);
-		n--;
+		if (str[i] == '%')
+		{
+			printed += ft_format(args, str[i + 1]);
+			i++;
+		}
+		else
+			printed += ft_printchar(str[i]);
+		i++;
 	}
-	va_end(ptr);
-	return (sum);
+	va_end(args);
+	return (printed);
 }
