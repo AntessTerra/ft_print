@@ -6,34 +6,36 @@
 /*   By: jbartosi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:49:24 by jbartosi          #+#    #+#             */
-/*   Updated: 2023/01/26 21:49:43 by jbartosi         ###   ########.fr       */
+/*   Updated: 2023/01/27 13:04:58 by jbartosi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printhex(long long int nb, const char *base)
+int	ft_printhex(unsigned long long nb, const char specifier)
 {
-	static int	printed;
-	int			base_len;
+	int					printed;
+	unsigned int		base_len;
+	char				*base;
 
+	printed = 0;
+
+	if (specifier == 'p' && nb > 0)
+		printed += ft_printstr("0x");
+	else if (specifier == 'p' && nb == 0)
+		return (ft_printstr("(nil)"));
+	if (specifier == 'X')
+		base = "0123456789ABCDEF";
+	else
+		base = "0123456789abcdef";
 	base_len = ft_strlen(base);
-	if (nb == -9223372036854775807)
-	{
-		write(1, "-9223372036854775807", 20);
-		return (20);
-	}
-	else if (nb < 0)
-	{
-		printed += ft_printchar('-');
-		ft_printnbr_base(-nb, base);
-	}
-	else if (nb > base_len)
+	if (nb >= base_len)
 	{
 		ft_printnbr_base(nb / base_len, base);
 		ft_printnbr_base(nb % base_len, base);
 	}
 	else
-		printed += ft_printchar(base[nb]);
+		ft_printchar(base[nb]);
+	printed += ft_getwritenlen(nb, base_len);
 	return (printed);
 }

@@ -6,12 +6,12 @@
 #    By: jbartosi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 12:24:34 by jbartosi          #+#    #+#              #
-#    Updated: 2023/01/26 21:47:59 by jbartosi         ###   ########.fr        #
+#    Updated: 2023/01/27 09:38:35 by jbartosi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
-SRCS = ft_printf.c ft_printnbr_base.c
+SRCS = ft_printf.c ft_printnbr_base.c ft_printhex.c ft_printf_helper.c
 OBJS = $(SRCS:.c=.o)
 CFLAGS = -Wall -Wextra -Werror
 LIBFT_PATH = ./libft

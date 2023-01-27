@@ -1,28 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_printf_helper.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbartosi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/17 12:40:14 by jbartosi          #+#    #+#             */
-/*   Updated: 2023/01/27 12:47:17 by jbartosi         ###   ########.fr       */
+/*   Created: 2023/01/27 09:37:52 by jbartosi          #+#    #+#             */
+/*   Updated: 2023/01/27 12:46:41 by jbartosi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <limits.h>
-# include "libft/libft.h"
+int	ft_printchar(char c)
+{
+	write(1, &c, 1);
+	return (1);
+}
 
-int	ft_printf(const char *str, ...);
-int	ft_printnbr_base(long long int nb, const char *base);
-int	ft_printchar(char c);
-int	ft_printstr(char *str);
-int	ft_printhex(unsigned long long nb, const char specifier);
-int	ft_getwritenlen(long long nb, int base_len);
+int	ft_printstr(char *str)
+{
+	int	i;
 
-#endif
+	i = 0;
+	if (str == NULL)
+	{
+		write(1, "(null)", 6);
+		return (6);
+	}
+	while (str[i] != '\0')
+	{
+		ft_printchar(str[i++]);
+	}
+	return (i);
+}
+
+int	ft_getwritenlen(long long nb, int base_len)
+{
+	int	i;
+
+	i = 1;
+	while (nb >= base_len)
+	{
+		nb /= base_len;
+		i++;
+	}
+	return (i);
+}
