@@ -6,7 +6,7 @@
 /*   By: jbartosi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:49:24 by jbartosi          #+#    #+#             */
-/*   Updated: 2023/01/27 13:04:58 by jbartosi         ###   ########.fr       */
+/*   Updated: 2023/01/29 13:55:08 by jbartosi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	ft_printhex(unsigned long long nb, const char specifier)
 	char				*base;
 
 	printed = 0;
-
 	if (specifier == 'p' && nb > 0)
 		printed += ft_printstr("0x");
 	else if (specifier == 'p' && nb == 0)
