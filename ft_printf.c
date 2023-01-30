@@ -6,47 +6,48 @@
 /*   By: jbartosi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 12:40:23 by jbartosi          #+#    #+#             */
-/*   Updated: 2023/01/17 12:40:26 by jbartosi         ###   ########.fr       */
+/*   Updated: 2023/01/29 16:15:49 by jbartosi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printchar(char c)
-{
-	write(1, &c, 1);
-	return (1);
-}
-
-int	ft_format(va_list args, const char specifier)
+int	ft_print(t_format format, va_list args)
 {
 	int	printed;
 
 	printed = 0;
-	if (specifier == 'c')
-		printed += ft_printchar(va_arg(args, int));
+	if (format.specifier == 'c' || format.specifier == '%')
+		printed = ft_print_char(format, args);
+	if (format.specifier == 's')
+		printed = ft_print_str(format, args);
 	return (printed);
 }
 
 int	ft_printf(const char *str, ...)
 {
-	int		i;
 	int		printed;
 	va_list	args;
+	char	*save;
 
-	i = 0;
 	printed = 0;
 	va_start(args, str);
-	while (str[i])
+	while (*str)
 	{
-		if (str[i] == '%')
+		if (*str == '%')
 		{
-			printed += ft_format(args, str[i + 1]);
-			i++;
+			save = (char *)str;
+			if (*(++str))
+				printed += ft_format((char *)str, args);
+			while (*str && !ft_strchr(SPECIFIERS, *str))
+				str++;
+			if (!(*str))
+				str = save;
 		}
 		else
-			printed += ft_printchar(str[i]);
-		i++;
+			printed += ft_printchar(*str);
+		if (*str)
+			str++;
 	}
 	va_end(args);
 	return (printed);
