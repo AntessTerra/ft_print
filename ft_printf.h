@@ -44,6 +44,7 @@ int			ft_format(char *str, va_list args);
 int			ft_print_char(t_format format, va_list args);
 int			ft_print_str(t_format f, va_list args);
 int			ft_print(t_format format, va_list args);
-t_format	ft_newformat(void);
+int			ft_num_len(unsigned int	nb, int divider);
+int			ft_format_nbr(t_format format, va_list args);
 
 #endif

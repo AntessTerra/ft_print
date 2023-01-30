@@ -12,16 +12,32 @@
 
 #include "ft_printf.h"
 
+int	ft_num_len(unsigned int	nb, int	divider)
+{
+	int	i;
+
+	i = 0;
+	while (nb > 0)
+	{
+		i++;
+		nb /= divider;
+	}
+	return (i);
+}
+
 int	ft_print(t_format format, va_list args)
 {
-	int	printed;
-
-	printed = 0;
 	if (format.specifier == 'c' || format.specifier == '%')
-		printed = ft_print_char(format, args);
+		return (ft_print_char(format, args));
 	if (format.specifier == 's')
-		printed = ft_print_str(format, args);
-	return (printed);
+		return (ft_print_str(format, args));
+	if (format.specifier == 'd' || format.specifier == 'i'
+		|| format.specifier == 'u')
+		return (ft_format_nbr(format, args));
+	if (format.specifier == 'x' || format.specifier == 'X')
+		return (ft_print_hex(format, args));
+	if (format.specifier == 'p')
+		return (ft_print_mem(format, args));
 }
 
 int	ft_printf(const char *str, ...)

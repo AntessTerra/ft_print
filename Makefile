@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = libftprintf.a
-SRCS = ft_printf.c ft_format.c ft_newformat.c ft_print_alpha.c
+SRCS = ft_printf.c ft_format.c ft_print_alpha.c ft_print_nbr.c ft_print_hex.c
 OBJS = $(SRCS:.c=.o)
 CFLAGS = -Wall -Wextra -Werror
 LIBFT_PATH = ./libft
