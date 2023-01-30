@@ -20,7 +20,7 @@
 # include "libft/libft.h"
 
 # define SPECIFIERS	"cspdiuxX%"
-# define HEXUP		"0123465789ABCDEF"
+# define HEXUP		"0123456789ABCDEF"
 # define HEXDOWN	"0123456789abcdef"
 
 typedef struct s_format
@@ -47,6 +47,6 @@ int			ft_print_str(t_format f, va_list args);
 int			ft_print(t_format format, va_list args);
 int			ft_num_len(unsigned int nb, int divider);
 int			ft_format_nbr(t_format format, va_list args);
-int			ft_print_mem(t_format fr, va_list args);
+int			ft_print_mem(t_format fr, unsigned long nb);
 int			ft_print_hex(t_format fr, va_list args);
 #endif

@@ -17,6 +17,8 @@ int	ft_num_len(unsigned int nb, int divider)
 	int	i;
 
 	i = 0;
+	if (nb == 0)
+		return (1);
 	while (nb > 0)
 	{
 		i++;
@@ -27,6 +29,8 @@ int	ft_num_len(unsigned int nb, int divider)
 
 int	ft_print(t_format format, va_list args)
 {
+	unsigned long	ptr;
+
 	if (format.specifier == 'c' || format.specifier == '%')
 		return (ft_print_char(format, args));
 	if (format.specifier == 's')
@@ -37,7 +41,13 @@ int	ft_print(t_format format, va_list args)
 	if (format.specifier == 'x' || format.specifier == 'X')
 		return (ft_print_hex(format, args));
 	if (format.specifier == 'p')
-		return (ft_print_mem(format, args));
+	{
+		ptr = va_arg(args, unsigned long);
+		if (ptr)
+			return (ft_print_mem(format, va_arg(args, unsigned long)));
+		else
+			return (ft_putstrn_fd("(nil)", 1, 5));
+	}
 	return (-1);
 }
 

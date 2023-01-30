@@ -19,6 +19,8 @@ LIBFT_NAME = ./libft/libft.a
 
 all: $(LIBFT_NAME) $(NAME)
 
+bonus: all
+
 $(LIBFT_NAME):
 	make -C $(LIBFT_PATH)
 

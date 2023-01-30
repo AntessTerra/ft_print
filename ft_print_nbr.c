@@ -25,9 +25,13 @@ static char	*ft_uitoa(unsigned int nb)
 	int		lenght;
 
 	lenght = ft_num_len(nb, 10);
+	if (nb == 0)
+		lenght = 1;
 	str = (char *)malloc(lenght + 1);
 	if (!str)
 		return (0);
+	if (nb == 0)
+		str[0] = '0';
 	str[lenght] = '\0';
 	while (nb > 0)
 	{
@@ -43,19 +47,18 @@ static int	ft_print_nbr(t_format f, char *str, int lenght, int isneg)
 	int	pr;
 
 	pr = 0;
+	//printf("\nDEBUG: %i | %i | %i | %i\n", f.space, f.dot, isneg, f.zero);
 	f.width -= (f.space && !isneg && !f.plus && f.width);
 	if (isneg || f.plus)
 		pr += ft_putnchar_fd(plus(f), 1, f.zero && (!f.dot || f.neg_prec));
 	else if (f.space)
-		pr += ft_putnchar_fd(' ', 1, f.zero && !f.dot);
-	if (!f.minus && f.width > f.precison && f.zero && (!f.dot || f.neg_prec))
+		pr += ft_putnchar_fd(' ', 1, !f.zero && !f.dot);
+	if (!f.minus && f.width > f.precison && (!f.dot || f.neg_prec) && f.zero)
 		pr += ft_putnchar_fd('0', 1, f.width - f.precison - isneg - f.plus);
 	else if (!f.minus && f.width > f.precison)
 		pr += ft_putnchar_fd(' ', 1, f.width - f.precison - isneg - f.plus);
 	if (isneg || f.plus)
 		pr += ft_putnchar_fd(plus(f), 1, !f.zero || (f.dot && !f.neg_prec));
-	else if (f.space)
-		pr += ft_putnchar_fd(' ', 1, f.zero && !f.dot);
 	pr += ft_putnchar_fd('0', 1, f.precison - lenght);
 	pr += write(1, str, lenght);
 	if (f.minus && f.width > f.precison)
@@ -73,15 +76,12 @@ int	ft_format_nbr(t_format format, va_list args)
 
 	printed = 0;
 	nb = va_arg(args, int);
-	isneg = (nb < 0 && nb != INT_MIN && format.specifier != 'u');
+	isneg = (nb < 0 && format.specifier != 'u');
 	if (isneg)
 		format.plus = 0;
 	if (nb < 0 && format.specifier != 'u')
 		nb = nb * -1;
-	if (nb < 0 && format.specifier == 'u')
-		str = ft_uitoa((unsigned)nb);
-	else
-		str = ft_itoa(nb);
+	str = ft_uitoa((unsigned)nb);
 	lenght = ft_strlen(str);
 	if (*str == '0' && !format.precison && format.dot)
 		lenght = 0;

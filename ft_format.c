@@ -106,7 +106,7 @@ int	ft_format(char *str, va_list args)
 	if (format.width < 0)
 	{
 		format.minus = 1;
-		format.width = format.width * -1;
+		format.width *= -1;
 	}
 	format.specifier = *str;
 	format.neg_prec = format.precison < 0;
