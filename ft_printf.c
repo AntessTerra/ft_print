@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int	ft_num_len(unsigned int	nb, int	divider)
+int	ft_num_len(unsigned int nb, int divider)
 {
 	int	i;
 
@@ -38,6 +38,7 @@ int	ft_print(t_format format, va_list args)
 		return (ft_print_hex(format, args));
 	if (format.specifier == 'p')
 		return (ft_print_mem(format, args));
+	return (-1);
 }
 
 int	ft_printf(const char *str, ...)

@@ -39,12 +39,14 @@ typedef struct s_format
 
 int			ft_printf(const char *str, ...);
 int			ft_putnchar_fd(char c, int fd, int nb);
+int			ft_putstrn_fd(char *str, int fd, int nb);
 int			ft_printchar(char c);
 int			ft_format(char *str, va_list args);
 int			ft_print_char(t_format format, va_list args);
 int			ft_print_str(t_format f, va_list args);
 int			ft_print(t_format format, va_list args);
-int			ft_num_len(unsigned int	nb, int divider);
+int			ft_num_len(unsigned int nb, int divider);
 int			ft_format_nbr(t_format format, va_list args);
-
+int			ft_print_mem(t_format fr, va_list args);
+int			ft_print_hex(t_format fr, va_list args);
 #endif

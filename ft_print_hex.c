@@ -29,10 +29,46 @@ static int	ft_hex(t_format format, size_t nb, size_t done)
 	if (nb > 0 || (!done && (format.specifier != 'p' || !format.dot)))
 	{
 		digit = nb % 16;
-		if (format)
+		if (format.specifier == 'X')
+			c = HEXUP[digit];
+		else
+			c = HEXDOWN[digit];
+		nb /= 16;
+		done = 1;
+		printed += ft_hex(format, nb, done);
+		printed += ft_printchar(c);
 	}
-
+	return (printed);
 }
+
+int	ft_print_hex(t_format fr, va_list args)
+{
+	int		printed;
+	int		lenght;
+	size_t	nb;
+
+	printed = 0;
+	nb = va_arg(args, size_t);
+	lenght = ft_num_len(nb, 16);
+	if (!nb && !fr.precison && fr.dot)
+		lenght = 0;
+	if (fr.precison < 0 || fr.precison < lenght || !fr.dot)
+		fr.precison = lenght;
+	if (fr.hash && nb)
+		fr.width -= 2;
+	printed += ft_putstrn_fd(hash(fr), 1, 2 * (fr.hash && fr.zero && nb));
+	if (!fr.minus && fr.width > fr.precison && (!fr.dot || fr.neg_prec) && fr.zero)
+		printed += ft_putnchar_fd('0', 1, (fr.width - fr.precison));
+	else if (!fr.minus && fr.width > fr.precison)
+		printed += ft_putnchar_fd(' ', 1, (fr.width - fr.precison));
+	printed += ft_putstrn_fd(hash(fr), 1, 2 * (fr.hash && !fr.zero && nb));
+	printed += ft_putnchar_fd('0', 1, (fr.precison - lenght));
+	if (lenght)
+		printed += ft_hex(fr, nb, nb);
+	if (fr.minus && fr.width > fr.precison)
+		printed += ft_putnchar_fd(' ', 1, fr.width - fr.precison);
+	return (printed);
+	}
 
 int	ft_print_mem(t_format fr, va_list args)
 {
@@ -46,13 +82,13 @@ int	ft_print_mem(t_format fr, va_list args)
 	lenght *= !(!nb && !fr.precison && fr.dot);
 	if (fr.precison < lenght || !fr.dot)
 		fr.precison = lenght;
-	pritned += write(1, "0x", 2 * fr.zero);
+	printed += write(1, "0x", 2 * fr.zero);
 	fr.width -= 2;
 	if (!fr.minus && fr.width > fr.precison && !fr.dot && fr.zero)
 		printed += ft_putnchar_fd('0', 1, (fr.width - fr.precison));
 	else if (!fr.minus && fr.width > fr.precison)
 		printed += ft_putnchar_fd(' ', 1, (fr.width - fr.precison));
-	printed += write(1, "0x", 2 * !fr.zero)
+	printed += write(1, "0x", 2 * !fr.zero);
 	printed += ft_putnchar_fd('0', 1, (fr.precison - lenght) * (nb != 0));
 	printed += ft_putnchar_fd('0', 1, fr.precison * (fr.dot && !nb));
 	if (lenght)
