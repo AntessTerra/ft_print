@@ -62,15 +62,15 @@ int	ft_print_char(t_format format, va_list args)
 	return (printed);
 }
 
-int	ft_print_str(t_format f, va_list args)
+int	ft_print_str(t_format f, char *str)
 {
-	char	*str;
 	int		printed;
 	int		malloced;
 
 	printed = 0;
 	malloced = 0;
-	str = va_arg(args, char *);
+	if (str == NULL && f.precison > 0 && f.precison < 6)
+		return (0);
 	if (!str)
 	{
 		str = malloc(7);

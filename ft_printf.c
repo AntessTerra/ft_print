@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int	ft_num_len(unsigned int nb, int divider)
+int	ft_num_len(unsigned long nb, int divider)
 {
 	int	i;
 
@@ -34,7 +34,7 @@ int	ft_print(t_format format, va_list args)
 	if (format.specifier == 'c' || format.specifier == '%')
 		return (ft_print_char(format, args));
 	if (format.specifier == 's')
-		return (ft_print_str(format, args));
+		return (ft_print_str(format, va_arg(args, char *)));
 	if (format.specifier == 'd' || format.specifier == 'i'
 		|| format.specifier == 'u')
 		return (ft_format_nbr(format, args));
@@ -44,9 +44,9 @@ int	ft_print(t_format format, va_list args)
 	{
 		ptr = va_arg(args, unsigned long);
 		if (ptr)
-			return (ft_print_mem(format, va_arg(args, unsigned long)));
+			return (ft_print_mem(format, ptr));
 		else
-			return (ft_putstrn_fd("(nil)", 1, 5));
+			return (ft_print_str(format, "(nil)"));
 	}
 	return (-1);
 }

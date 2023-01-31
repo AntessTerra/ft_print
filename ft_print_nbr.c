@@ -47,7 +47,6 @@ static int	ft_print_nbr(t_format f, char *str, int lenght, int isneg)
 	int	pr;
 
 	pr = 0;
-	//printf("\nDEBUG: %i | %i | %i | %i\n", f.space, f.dot, isneg, f.zero);
 	f.width -= (f.space && !isneg && !f.plus && f.width);
 	if (isneg || f.plus)
 		pr += ft_putnchar_fd(plus(f), 1, f.zero && (!f.dot || f.neg_prec));
