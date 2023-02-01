@@ -43,7 +43,7 @@ int			ft_putstrn_fd(char *str, int fd, int nb);
 int			ft_printchar(char c);
 int			ft_format(char *str, va_list args);
 int			ft_print_char(t_format format, va_list args);
-int			ft_print_str(t_format f, char *str);
+int			ft_print_str(t_format f, char *str, int printed, int calloced);
 int			ft_print(t_format format, va_list args);
 int			ft_num_len(unsigned long nb, int divider);
 int			ft_format_nbr(t_format format, va_list args);

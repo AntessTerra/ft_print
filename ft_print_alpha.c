@@ -50,7 +50,7 @@ int	ft_print_char(t_format format, va_list args)
 	if (format.specifier == 'c')
 		c = va_arg(args, int);
 	else
-		c = '%';
+		return (ft_printchar('%'));
 	format.precison = 1;
 	if (!format.zero && format.zero)
 		printed += ft_putnchar_fd('0', 1, format.width - format.precison);
@@ -62,15 +62,12 @@ int	ft_print_char(t_format format, va_list args)
 	return (printed);
 }
 
-int	ft_print_str(t_format f, char *str)
+int	ft_print_str(t_format f, char *str, int printed, int malloced)
 {
-	int		printed;
-	int		malloced;
-
-	printed = 0;
-	malloced = 0;
 	if (str == NULL && f.precison > 0 && f.precison < 6)
 		return (0);
+	else if (str == NULL && f.dot && f.width > f.precison)
+		return (ft_putnchar_fd(' ', 1, (f.width - f.precison) + 1));
 	if (!str)
 	{
 		str = malloc(7);

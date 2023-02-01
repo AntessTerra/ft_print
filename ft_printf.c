@@ -30,11 +30,15 @@ int	ft_num_len(unsigned long nb, int divider)
 int	ft_print(t_format format, va_list args)
 {
 	unsigned long	ptr;
+	int				printed;
+	int				malloced;
 
+	printed = 0;
+	malloced = 0;
 	if (format.specifier == 'c' || format.specifier == '%')
 		return (ft_print_char(format, args));
 	if (format.specifier == 's')
-		return (ft_print_str(format, va_arg(args, char *)));
+		return (ft_print_str(format, va_arg(args, char *), printed, malloced));
 	if (format.specifier == 'd' || format.specifier == 'i'
 		|| format.specifier == 'u')
 		return (ft_format_nbr(format, args));
@@ -46,7 +50,7 @@ int	ft_print(t_format format, va_list args)
 		if (ptr)
 			return (ft_print_mem(format, ptr));
 		else
-			return (ft_print_str(format, "(nil)"));
+			return (ft_print_str(format, "(nil)", 0, 0));
 	}
 	return (-1);
 }

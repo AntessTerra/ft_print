@@ -51,7 +51,7 @@ static int	ft_print_nbr(t_format f, char *str, int lenght, int isneg)
 	if (isneg || f.plus)
 		pr += ft_putnchar_fd(plus(f), 1, f.zero && (!f.dot || f.neg_prec));
 	else if (f.space)
-		pr += ft_putnchar_fd(' ', 1, !f.zero && !f.dot);
+		pr += ft_putnchar_fd(' ', 1, !f.zero);
 	if (!f.minus && f.width > f.precison && (!f.dot || f.neg_prec) && f.zero)
 		pr += ft_putnchar_fd('0', 1, f.width - f.precison - isneg - f.plus);
 	else if (!f.minus && f.width > f.precison)
